@@ -4,6 +4,9 @@ install:
 test:
 	npx jest
 
+test-coverage:
+	npm test -- --coverage
+
 publish:
 	npm publish --dry-run
 
