@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-const program = require('commander');
+import program from 'commander';
+import showMeTheDifferences from '..';
 
 program
   .version('1.0.0')
@@ -7,7 +8,9 @@ program
   .option('-f, --format [type]', 'output format')
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig) => {
-    console.log(firstConfig, secondConfig);
+    console.log(showMeTheDifferences(firstConfig, secondConfig));
   });
 
 program.parse(process.argv);
+
+export default (firstFile, secondFile) => showMeTheDifferences(firstFile, secondFile);
