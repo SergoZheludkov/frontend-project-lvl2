@@ -7,7 +7,7 @@ const getMeDataFile = (link) => {
   const normalLink = path.resolve(process.cwd(), link);
   const format = path.extname(link);
   const parser = getMeParser(format);
-  const jsonData = parser(fs.readFileSync(normalLink), 'utf8');
+  const jsonData = parser(fs.readFileSync(normalLink, 'utf8'));
   const keys = Object.keys(jsonData);
   return [keys, jsonData];
 };

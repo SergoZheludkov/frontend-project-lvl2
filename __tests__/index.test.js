@@ -14,8 +14,8 @@ describe('showMeTheDifferences', () => {
   const jsonLink2 = `${__dirname}/fixtures/after.json`;
   const yamlLink1 = `${__dirname}/fixtures/before.yml`;
   const yamlLink2 = `${__dirname}/fixtures/after.yml`;
-  const iniLink1 = `${__dirname}/fixtures/before.yml`;
-  const iniLink2 = `${__dirname}/fixtures/after.yml`;
+  const iniLink1 = `${__dirname}/fixtures/before.ini`;
+  const iniLink2 = `${__dirname}/fixtures/after.ini`;
 
   test('json', () => {
     expect(showMeTheDifferences(jsonLink1, jsonLink2)).toEqual(result1);
