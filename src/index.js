@@ -1,57 +1,49 @@
-import fs from 'fs';
-import path from 'path';
 import lodash from 'lodash';
-import getParser from './parser';
+import doRender from './tools/renderToTree';
+import getDataFile from './tools/parser';
 
-const getDataFile = (link) => {
-  const normalLink = path.resolve(process.cwd(), link); // получение полной ссылки
-  const format = path.extname(link); // извлечение формата файла (.json / .yml / .ini)
-  const parser = getParser(format); // выбор парсера
-  const fileData = parser(fs.readFileSync(normalLink, 'utf8'));
-  return fileData; // вернуть объект с данными из файла
+const getAllKeys = (file1, file2) => {
+  const firstKeys = Object.keys(file1);
+  const secondKeys = Object.keys(file2);
+  const unionKeys = lodash.union(firstKeys, secondKeys);
+  const sortedKeys = lodash.sortedUniq(unionKeys);
+  return sortedKeys;
+};
+
+const doSortName = (a, b) => {
+  if (a.key < b.key) {
+    return -1;
+  }
+  if (a.key > b.key) {
+    return 1;
+  }
+  return 0;
 };
 
 const getDiff = (fileData1, fileData2) => {
-  const firstKeys = Object.keys(fileData1);
-  const secondData = Object.keys(fileData2);
-  const unionKeys = lodash.union(firstKeys, secondData);
-  const sortedKeys = lodash.sortedUniq(unionKeys);
+  const keys = getAllKeys(fileData1, fileData2);
+  const ast = keys.reduce((acc, item) => {
+    const value1 = fileData1[item];
+    const value2 = fileData2[item];
 
-  return sortedKeys.reduce((acc, key) => {
-    const value1 = fileData1[key];
-    const value2 = fileData2[key];
-
-    if (lodash.has(fileData1, key) && lodash.has(fileData2, key)) {
+    if (lodash.has(fileData1, item) && lodash.has(fileData2, item)) {
       if (value2 === value1) {
-        acc.push([' ', key, value2]);
+        acc.push({ type: ' ', key: item, value: value2 });
       } else if (value2 !== value1 && lodash.isObject(value2) && lodash.isObject(value1)) {
-        acc.push([' ', key, getDiff(value1, value2)]);
+        acc.push({ type: ' ', key: item, children: getDiff(value1, value2) });
       } else if (value2 !== value1) {
-        acc.push(['+', key, value2]);
-        acc.push(['-', key, value1]);
+        acc.push({ type: '+', key: item, value: value2 });
+        acc.push({ type: '-', key: item, value: value1 });
       }
-    } else if (lodash.has(fileData2, key) && !lodash.has(fileData1, key)) {
-      acc.push(['+', key, value2]);
-    } else if (lodash.has(fileData1, key) && !lodash.has(fileData2, key)) {
-      acc.push(['-', key, value1]);
+    } else if (lodash.has(fileData2, item) && !lodash.has(fileData1, item)) {
+      acc.push({ type: '+', key: item, value: value2 });
+    } else if (lodash.has(fileData1, item) && !lodash.has(fileData2, item)) {
+      acc.push({ type: '-', key: item, value: value1 });
     }
 
-    return acc;
+    return acc.sort(doSortName);
   }, []);
-};
-
-const doRender = (dataArray) => {
-  const resultArray = dataArray.reduce((acc, item) => {
-    const [symbol, key, value] = item;
-    if (Array.isArray(value)) {
-      acc.push(`  ${symbol} ${key}: ${doRender(value)}`);
-    } else {
-      acc.push(`  ${symbol} ${key}: ${value}`);
-    }
-    return acc;
-  }, []);
-
-  return `{\n${resultArray.join('\n')}\n}`;
+  return ast;
 };
 
 const showTheDifferences = (link1, link2) => {
