@@ -11,7 +11,7 @@ const stringify = (val, deep) => {
   return val;
 };
 
-const doRender = (dataArray, deep = 1) => {
+const getRenderTree = (dataArray, deep = 1) => {
   const indent = '  '.repeat(deep);
   const result = dataArray.reduce((acc, item) => {
     const {
@@ -22,7 +22,7 @@ const doRender = (dataArray, deep = 1) => {
     } = item;
 
     if (Array.isArray(children)) {
-      acc.push(`${indent}${type} ${key}: ${doRender(children, deep + 2)}`);
+      acc.push(`${indent}${type} ${key}: ${getRenderTree(children, deep + 2)}`);
     } else {
       acc.push(`${indent}${type} ${key}: ${stringify(value, deep + 2)}`);
     }
@@ -34,4 +34,4 @@ const doRender = (dataArray, deep = 1) => {
   return string;
 };
 
-export default doRender;
+export default getRenderTree;

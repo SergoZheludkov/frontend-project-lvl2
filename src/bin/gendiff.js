@@ -1,16 +1,15 @@
 #!/usr/bin/env node
 import program from 'commander';
-import showMeTheDifferences from '..';
+import genDiff from '..';
 
 program
   .version('1.0.0')
   .description('Compares two configuration files and shows a difference')
-  .option('-f, --format [type]', 'output format')
+  .option('-f, --format [type]', 'output format', 'tree')
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig) => {
-    console.log(showMeTheDifferences(firstConfig, secondConfig));
-  });
+    console.log(genDiff(firstConfig, secondConfig, program.format));
+  })
+  .parse(process.argv);
 
-program.parse(process.argv);
-
-export default (firstFile, secondFile) => showMeTheDifferences(firstFile, secondFile);
+export default genDiff;

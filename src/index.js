@@ -1,5 +1,5 @@
 import lodash from 'lodash';
-import doRender from './tools/renderToTree';
+import getFormatRender from './formatters';
 import getDataFile from './tools/parser';
 
 const getAllKeys = (file1, file2) => {
@@ -20,7 +20,7 @@ const doSortName = (a, b) => {
   return 0;
 };
 
-const getDiff = (fileData1, fileData2) => {
+const getAst = (fileData1, fileData2) => {
   const keys = getAllKeys(fileData1, fileData2);
   const ast = keys.reduce((acc, item) => {
     const value1 = fileData1[item];
@@ -30,7 +30,7 @@ const getDiff = (fileData1, fileData2) => {
       if (value2 === value1) {
         acc.push({ type: ' ', key: item, value: value2 });
       } else if (value2 !== value1 && lodash.isObject(value2) && lodash.isObject(value1)) {
-        acc.push({ type: ' ', key: item, children: getDiff(value1, value2) });
+        acc.push({ type: ' ', key: item, children: getAst(value1, value2) });
       } else if (value2 !== value1) {
         acc.push({ type: '+', key: item, value: value2 });
         acc.push({ type: '-', key: item, value: value1 });
@@ -46,12 +46,13 @@ const getDiff = (fileData1, fileData2) => {
   return ast;
 };
 
-const showTheDifferences = (link1, link2) => {
+const showTheDifferences = (link1, link2, format) => {
   const firstFileData = getDataFile(link1);
   const secondFileData = getDataFile(link2);
-  const resultDiff = getDiff(firstFileData, secondFileData);
-  const render = doRender(resultDiff);
-  return render;
+  const ast = getAst(firstFileData, secondFileData);
+  const render = getFormatRender(format);
+  const result = render(ast);
+  return result;
 };
 
 export default showTheDifferences;
