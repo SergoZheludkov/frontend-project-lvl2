@@ -1,5 +1,6 @@
-import getRenderTree from './renderToTree';
-import getRenderPlain from './renderToPlain';
+import getRenderTree from './tree';
+import getRenderPlain from './plain';
+import getRenderJson from './json';
 
 const getFormatRender = (format) => {
   let result;
@@ -10,6 +11,10 @@ const getFormatRender = (format) => {
 
     case 'plain':
       result = getRenderPlain;
+      break;
+
+    case 'json':
+      result = getRenderJson;
       break;
 
     default:

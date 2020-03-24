@@ -1,0 +1,110 @@
+[
+  {
+    "type": " ",
+    "key": "common",
+    "children": [
+      {
+        "type": "+",
+        "key": "follow",
+        "value": false
+      },
+      {
+        "type": " ",
+        "key": "setting1",
+        "value": "Value 1"
+      },
+      {
+        "type": "-",
+        "key": "setting2",
+        "value": 200
+      },
+      {
+        "type": "+",
+        "key": "setting3",
+        "value": {
+          "key": "value"
+        }
+      },
+      {
+        "type": "-",
+        "key": "setting3",
+        "value": true
+      },
+      {
+        "type": "+",
+        "key": "setting4",
+        "value": "blah blah"
+      },
+      {
+        "type": "+",
+        "key": "setting5",
+        "value": {
+          "key5": "value5"
+        }
+      },
+      {
+        "type": " ",
+        "key": "setting6",
+        "children": [
+          {
+            "type": " ",
+            "key": "key",
+            "value": "value"
+          },
+          {
+            "type": "+",
+            "key": "ops",
+            "value": "vops"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": " ",
+    "key": "group1",
+    "children": [
+      {
+        "type": "+",
+        "key": "baz",
+        "value": "bars"
+      },
+      {
+        "type": "-",
+        "key": "baz",
+        "value": "bas"
+      },
+      {
+        "type": " ",
+        "key": "foo",
+        "value": "bar"
+      },
+      {
+        "type": "+",
+        "key": "nest",
+        "value": "str"
+      },
+      {
+        "type": "-",
+        "key": "nest",
+        "value": {
+          "key": "value"
+        }
+      }
+    ]
+  },
+  {
+    "type": "-",
+    "key": "group2",
+    "value": {
+      "abc": 12345
+    }
+  },
+  {
+    "type": "+",
+    "key": "group3",
+    "value": {
+      "fee": 100500
+    }
+  }
+]
