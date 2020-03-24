@@ -1,4 +1,4 @@
-![Node CI](https://github.com/SergoZheludkov/frontend-project-lvl2/workflows/Node%20CI/badge.svg)
+![Node CI](https://github.com/SergoZheludkov/frontend-project-lvl2/workflows/Node%20CI/badge.svg?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7b205993ff0a19e7dc2c/maintainability)](https://codeclimate.com/github/SergoZheludkov/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/7b205993ff0a19e7dc2c/test_coverage)](https://codeclimate.com/github/SergoZheludkov/frontend-project-lvl2/test_coverage)
 
