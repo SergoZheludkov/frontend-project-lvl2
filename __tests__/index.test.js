@@ -17,7 +17,7 @@ const iniLink1 = `${__dirname}/fixtures/before.ini`;
 const iniLink2 = `${__dirname}/fixtures/after.ini`;
 
 
-describe('AllFormaters', () => {
+describe('Formaters', () => {
   test('Tree', () => {
     expect(showMeTheDifferences(jsonLink1, jsonLink2, 'tree')).toEqual(getResult(resultTreeLink));
     expect(showMeTheDifferences(yamlLink1, yamlLink2, 'tree')).toEqual(getResult(resultTreeLink));

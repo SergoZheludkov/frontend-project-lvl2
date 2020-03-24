@@ -43,5 +43,5 @@
   <p>
     <h4>Render like a JSON</h4>
   </p>
-  <a href="https://asciinema.org/a/tgn991dXrUSPpgHGrpqWb1h44" target="_blank"><img src="https://asciinema.org/a/tgn991dXrUSPpgHGrpqWb1h44.svg" /></a>
+  <a href="https://asciinema.org/a/tgn991dXrUSPpgHGrpqWb1h44" target="_blank"><img src="https://asciinema.org/a/tgn991dXrUSPpgHGrpqWb1h44.svg" width="50%" alt="Render JSON"/></a>
 </div>
