@@ -16,16 +16,15 @@
   <hr>
 </div>
 <div>
-  <p><h3>Install from GitHub:</h3> <br><code>$ make publish</code></p>
-  <p><h3>Help:</h3> <br><code>$ gendiff -h</code></p>
-  <p><h3>Compare:</h3> <br><code>$ gendiff __tests__/fixtures/before-plain.json __tests__/fixtures/after-plain.json </code></p>
+  <p><h3>Install from GitHub:</h3><code>$ make publish</code></p>
+  <p><h3>Help:</h3><code>$ gendiff -h</code></p>
+  <p><h3>Compare:</h3><code>$ gendiff -f &lt;format&gt; &lt;file 1&gt; &lt;file 2&gt; </code></p>
 </div>
 <div>
   <p>
     <h3>Flat files</h3>
-    <br>
   </p>
-  <a href="https://asciinema.org/a/312997" target="_blank"><img src="https://asciinema.org/a/312997.svg" /></a>
+  <a href="https://asciinema.org/a/7Tk9MvfKB8WJU1s9ALIfMwMPf" target="_blank"><img src="https://asciinema.org/a/7Tk9MvfKB8WJU1s9ALIfMwMPf.svg" /></a>
 </div>
 <div>
   <p>
@@ -34,17 +33,14 @@
   </p>
   <p>
     <h4>Render like a Tree</h4>
-    <br>
   </p>
-  <a href="https://asciinema.org/a/qDPKFN0vSxFGa2osm0clHnz24" target="_blank"><img src="https://asciinema.org/a/qDPKFN0vSxFGa2osm0clHnz24.svg" /></a>
+  <a href="https://asciinema.org/a/qDPKFN0vSxFGa2osm0clHnz24" target="_blank"><img src="https://asciinema.org/a/qDPKFN0vSxFGa2osm0clHnz24.svg" width="50%" alt="Render Tree" /></a>
   <p>
     <h4>Render like a Plain</h4>
-    <br>
   </p>
-  <a href="https://asciinema.org/a/5QwjUeYYNzmGwvCXttBrPkywL" target="_blank"><img src="https://asciinema.org/a/5QwjUeYYNzmGwvCXttBrPkywL.svg" /></a>
+  <a href="https://asciinema.org/a/5QwjUeYYNzmGwvCXttBrPkywL" target="_blank"><img src="https://asciinema.org/a/5QwjUeYYNzmGwvCXttBrPkywL.svg" width="50%" alt="Render Plain"/></a>
   <p>
     <h4>Render like a JSON</h4>
-    <br>
   </p>
-  <a href="https://asciinema.org/a/hXme7gvfEEHsM03q55ybrQRki" target="_blank"><img src="https://asciinema.org/a/hXme7gvfEEHsM03q55ybrQRki.svg" /></a>
+  <a href="https://asciinema.org/a/hXme7gvfEEHsM03q55ybrQRki" target="_blank"><img src="https://asciinema.org/a/hXme7gvfEEHsM03q55ybrQRki.svg" width="50%" alt="Render JSON"/></a>
 </div>
