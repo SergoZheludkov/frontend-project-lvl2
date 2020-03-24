@@ -3,24 +3,8 @@ import getRenderPlain from './plain';
 import getRenderJson from './json';
 
 const getFormatRender = (format) => {
-  let result;
-  switch (format) {
-    case 'tree':
-      result = getRenderTree;
-      break;
-
-    case 'plain':
-      result = getRenderPlain;
-      break;
-
-    case 'json':
-      result = getRenderJson;
-      break;
-
-    default:
-      break;
-  }
-  return result;
+  const formatters = { tree: getRenderTree, plain: getRenderPlain, json: getRenderJson };
+  return formatters[format];
 };
 
 export default getFormatRender;

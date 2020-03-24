@@ -1,6 +1,6 @@
 import getFormatRender from './formatters';
 import getDataFile from './tools/parser';
-import getAst from './ast';
+import getAst from './tools/ast';
 
 const showTheDifferences = (link1, link2, format) => {
   const firstFileData = getDataFile(link1);
