@@ -20,11 +20,12 @@
   <p><h3>Help:</h3><code>$ gendiff -h</code></p>
   <p><h3>Compare:</h3><code>$ gendiff -f &lt;format&gt; &lt;file 1&gt; &lt;file 2&gt; </code></p>
 </div>
+<hr>
 <div>
   <p>
     <h3>Flat files</h3>
   </p>
-  <a href="https://asciinema.org/a/7Tk9MvfKB8WJU1s9ALIfMwMPf" target="_blank"><img src="https://asciinema.org/a/7Tk9MvfKB8WJU1s9ALIfMwMPf.svg" /></a>
+  <a href="https://asciinema.org/a/7Tk9MvfKB8WJU1s9ALIfMwMPf" target="_blank"><img src="https://asciinema.org/a/7Tk9MvfKB8WJU1s9ALIfMwMPf.svg" width="50%"/></a>
 </div>
 <div>
   <p>
