@@ -5,15 +5,15 @@ const indentFromBraces = (indentation) => indentation.slice(0, indentation.lengt
 
 const stringify = (val, deep) => {
   if (lodash.isObject(val)) {
-    const res = Object.entries(val).flat();
-    const [key, value] = res;
+    const objectData = Object.entries(val).flat();
+    const [key, value] = objectData;
     return `{\n${indent(deep)}  ${key}: ${value}\n${indentFromBraces(indent(deep))}}`;
   }
   return val;
 };
 
-const getRenderTree = (dataArray, deep = 1) => {
-  const result = dataArray.reduce((acc, item) => {
+const getRenderTree = (ast, deep = 1) => {
+  const result = ast.map((item) => {
     const {
       type,
       key,
@@ -23,20 +23,18 @@ const getRenderTree = (dataArray, deep = 1) => {
     } = item;
 
     if (Array.isArray(children)) {
-      acc.push(`${indent(deep)}  ${key}: ${getRenderTree(children, deep + 2)}`);
-    } else if (type === 'unchanged') {
-      acc.push(`${indent(deep)}  ${key}: ${stringify(newValue, deep + 2)}`);
-    } else if (type === 'added') {
-      acc.push(`${indent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}`);
-    } else if (type === 'deleted') {
-      acc.push(`${indent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`);
-    } else if (type === 'changed') {
-      acc.push(`${indent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}`);
-      acc.push(`${indent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`);
+      return (`${indent(deep)}  ${key}: ${getRenderTree(children, deep + 2)}`);
+    } if (type === 'unchanged') {
+      return (`${indent(deep)}  ${key}: ${stringify(newValue, deep + 2)}`);
+    } if (type === 'added') {
+      return (`${indent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}`);
+    } if (type === 'deleted') {
+      return (`${indent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`);
+    } if (type === 'changed') {
+      return (`${indent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}\n${indent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`);
     }
-
-    return acc;
-  }, []);
+    return item;
+  });
   const string = `{\n${result.join('\n')}\n${indentFromBraces(indent(deep))}}`;
   return string;
 };
