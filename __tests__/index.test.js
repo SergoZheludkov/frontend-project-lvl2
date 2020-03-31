@@ -11,10 +11,10 @@ describe('All test', () => {
     ['before.yml', 'after.yml', 'plain', 'resultPlain.txt'],
     ['before.ini', 'after.ini', 'json', 'resultJson.txt'],
   ];
-  test.each(fileFormats)('Performance test', (before, after, format, resultFile) => {
-    const result = readFile(resultFile);
+  test.each(fileFormats)('Performance test', (before, after, format, resultFileName) => {
+    const resultFileData = readFile(resultFileName);
     const beforeFile = getFixturePath(before);
     const afterFile = getFixturePath(after);
-    expect(genDiff(beforeFile, afterFile, format)).toEqual(result);
+    expect(genDiff(beforeFile, afterFile, format)).toEqual(resultFileData);
   });
 });

@@ -1,15 +1,15 @@
-import lodash from 'lodash';
+import _ from 'lodash';
 
-const indent = (repetitions) => '  '.repeat(repetitions);
-const indentFromBraces = (indentation) => indentation.slice(0, indentation.length - 2);
+const getIndent = (repetitions) => '  '.repeat(repetitions);
+const getIndentFromBraces = (indentation) => indentation.slice(0, indentation.length - 2);
 
 const stringify = (val, deep) => {
-  if (lodash.isObject(val)) {
-    const objectData = Object.entries(val).flat();
-    const [key, value] = objectData;
-    return `{\n${indent(deep)}  ${key}: ${value}\n${indentFromBraces(indent(deep))}}`;
+  if (!_.isObject(val)) {
+    return val;
   }
-  return val;
+  const objectData = Object.entries(val).flat();
+  const [key, value] = objectData;
+  return `{\n${getIndent(deep)}  ${key}: ${value}\n${getIndentFromBraces(getIndent(deep))}}`;
 };
 
 const getRenderTree = (ast, deep = 1) => {
@@ -22,20 +22,27 @@ const getRenderTree = (ast, deep = 1) => {
       children,
     } = item;
 
-    if (Array.isArray(children)) {
-      return (`${indent(deep)}  ${key}: ${getRenderTree(children, deep + 2)}`);
-    } if (type === 'unchanged') {
-      return (`${indent(deep)}  ${key}: ${stringify(newValue, deep + 2)}`);
-    } if (type === 'added') {
-      return (`${indent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}`);
-    } if (type === 'deleted') {
-      return (`${indent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`);
-    } if (type === 'changed') {
-      return (`${indent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}\n${indent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`);
+    switch (type) {
+      case 'deleted':
+        return (`${getIndent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`);
+
+      case 'added':
+        return (`${getIndent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}`);
+
+      case 'changed':
+        return (`${getIndent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}\n${getIndent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`);
+
+      case 'unchanged':
+        return (`${getIndent(deep)}  ${key}: ${stringify(newValue, deep + 2)}`);
+
+      case 'depth':
+        return (`${getIndent(deep)}  ${key}: ${getRenderTree(children, deep + 2)}`);
+
+      default:
+        return null;
     }
-    return item;
   });
-  const string = `{\n${result.join('\n')}\n${indentFromBraces(indent(deep))}}`;
+  const string = `{\n${result.join('\n')}\n${getIndentFromBraces(getIndent(deep))}}`;
   return string;
 };
 

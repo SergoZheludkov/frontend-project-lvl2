@@ -1,10 +1,10 @@
-import lodash from 'lodash';
+import _ from 'lodash';
 
-const checkValue = (val) => (lodash.isObject(val) ? '[complex value]' : val);
+const checkValue = (val) => (_.isObject(val) ? '[complex value]' : val);
 
 const getRenderPlain = (ast, path = '') => {
   const resultArray = ast
-    .filter((item) => !(item.children === undefined && item.type === 'unchanged'))
+    .filter((item) => !(item.children !== 'depth' && item.type === 'unchanged'))
     .map((item) => {
       const {
         type,
@@ -16,18 +16,23 @@ const getRenderPlain = (ast, path = '') => {
 
       const fullPath = `${path}.${key}`;
 
-      if (Array.isArray(children)) {
-        return getRenderPlain(children, fullPath);
-      } if (type === 'changed') {
-        return (`Property '${fullPath.slice(1)}' was changed from '${checkValue(oldValue)}' to '${checkValue(newValue)}'`);
-      } if (type === 'deleted') {
-        return (`Property '${fullPath.slice(1)}' was deleted`);
-      } if (type === 'added') {
-        return (`Property '${fullPath.slice(1)}' was added with value: '${checkValue(newValue)}'`);
-      }
-      return item;
-    });
+      switch (type) {
+        case 'deleted':
+          return (`Property '${fullPath.slice(1)}' was deleted`);
 
+        case 'added':
+          return (`Property '${fullPath.slice(1)}' was added with value: '${checkValue(newValue)}'`);
+
+        case 'changed':
+          return (`Property '${fullPath.slice(1)}' was changed from '${checkValue(oldValue)}' to '${checkValue(newValue)}'`);
+
+        case 'depth':
+          return getRenderPlain(children, fullPath);
+
+        default:
+          return null;
+      }
+    });
   return resultArray.join('\n');
 };
 
