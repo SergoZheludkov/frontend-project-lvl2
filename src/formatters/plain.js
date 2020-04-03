@@ -14,23 +14,23 @@ const getRenderPlain = (ast, path = '') => {
         children,
       } = item;
 
-      const fullPath = `${path}.${key}`;
+      const fullPath = `${path}${key}`;
 
       switch (type) {
         case 'deleted':
-          return (`Property '${fullPath.slice(1)}' was deleted`);
+          return `Property '${fullPath}' was deleted`;
 
         case 'added':
-          return (`Property '${fullPath.slice(1)}' was added with value: '${checkValue(newValue)}'`);
+          return `Property '${fullPath}' was added with value: '${checkValue(newValue)}'`;
 
         case 'changed':
-          return (`Property '${fullPath.slice(1)}' was changed from '${checkValue(oldValue)}' to '${checkValue(newValue)}'`);
+          return `Property '${fullPath}' was changed from '${checkValue(oldValue)}' to '${checkValue(newValue)}'`;
 
         case 'depth':
-          return getRenderPlain(children, fullPath);
+          return getRenderPlain(children, `${fullPath}.`);
 
         default:
-          return null;
+          throw new Error(`Unknown type: ${type}`);
       }
     });
   return resultArray.join('\n');

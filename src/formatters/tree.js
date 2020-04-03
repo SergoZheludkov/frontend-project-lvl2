@@ -24,22 +24,22 @@ const getRenderTree = (ast, deep = 1) => {
 
     switch (type) {
       case 'deleted':
-        return (`${getIndent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`);
+        return `${getIndent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`;
 
       case 'added':
-        return (`${getIndent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}`);
+        return `${getIndent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}`;
 
       case 'changed':
-        return (`${getIndent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}\n${getIndent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`);
+        return `${getIndent(deep)}+ ${key}: ${stringify(newValue, deep + 2)}\n${getIndent(deep)}- ${key}: ${stringify(oldValue, deep + 2)}`;
 
       case 'unchanged':
-        return (`${getIndent(deep)}  ${key}: ${stringify(newValue, deep + 2)}`);
+        return `${getIndent(deep)}  ${key}: ${stringify(newValue, deep + 2)}`;
 
       case 'depth':
-        return (`${getIndent(deep)}  ${key}: ${getRenderTree(children, deep + 2)}`);
+        return `${getIndent(deep)}  ${key}: ${getRenderTree(children, deep + 2)}`;
 
       default:
-        return null;
+        throw new Error(`Unknown type: ${type}`);
     }
   });
   const string = `{\n${result.join('\n')}\n${getIndentFromBraces(getIndent(deep))}}`;

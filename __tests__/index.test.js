@@ -13,8 +13,8 @@ describe('All test', () => {
   ];
   test.each(fileFormats)('Performance test', (before, after, format, resultFileName) => {
     const resultFileData = readFile(resultFileName);
-    const beforeFile = getFixturePath(before);
-    const afterFile = getFixturePath(after);
-    expect(genDiff(beforeFile, afterFile, format)).toEqual(resultFileData);
+    const beforeFileData = getFixturePath(before);
+    const afterFileData = getFixturePath(after);
+    expect(genDiff(beforeFileData, afterFileData, format)).toEqual(resultFileData);
   });
 });
