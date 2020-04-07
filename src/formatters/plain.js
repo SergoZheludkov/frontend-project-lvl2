@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-const checkValue = (val) => (_.isObject(val) ? '[complex value]' : val);
+const stringify = (val) => (_.isObject(val) ? '[complex value]' : val);
 
 const getRenderPlain = (ast, path = '') => {
   const resultArray = ast
-    .filter((item) => !(item.children !== 'depth' && item.type === 'unchanged'))
+    .filter((item) => !(item.type !== 'depth' && item.type === 'unchanged'))
     .map((item) => {
       const {
         type,
@@ -21,12 +21,12 @@ const getRenderPlain = (ast, path = '') => {
           return `Property '${fullPath}' was deleted`;
 
         case 'added':
-          return `Property '${fullPath}' was added with value: '${checkValue(newValue)}'`;
+          return `Property '${fullPath}' was added with value: '${stringify(newValue)}'`;
 
         case 'changed':
-          return `Property '${fullPath}' was changed from '${checkValue(oldValue)}' to '${checkValue(newValue)}'`;
+          return `Property '${fullPath}' was changed from '${stringify(oldValue)}' to '${stringify(newValue)}'`;
 
-        case 'depth':
+        case 'nested':
           return getRenderPlain(children, `${fullPath}.`);
 
         default:

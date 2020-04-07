@@ -35,7 +35,7 @@ const getRenderTree = (ast, deep = 1) => {
       case 'unchanged':
         return `${getIndent(deep)}  ${key}: ${stringify(newValue, deep + 2)}`;
 
-      case 'depth':
+      case 'nested':
         return `${getIndent(deep)}  ${key}: ${getRenderTree(children, deep + 2)}`;
 
       default:

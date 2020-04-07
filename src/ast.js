@@ -37,7 +37,7 @@ const getAst = (beforeData, afterData) => {
     }
     if (newValue !== oldValue && _.isObject(newValue) && _.isObject(oldValue)) {
       return {
-        type: 'depth',
+        type: 'nested',
         key,
         children: getAst(oldValue, newValue),
       };
