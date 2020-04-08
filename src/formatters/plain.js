@@ -4,7 +4,7 @@ const stringify = (val) => (_.isObject(val) ? '[complex value]' : val);
 
 const getRenderPlain = (ast, path = '') => {
   const resultArray = ast
-    .filter((item) => !(item.type !== 'depth' && item.type === 'unchanged'))
+    .filter((item) => !(item.type === 'unchanged'))
     .map((item) => {
       const {
         type,
